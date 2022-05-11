@@ -1,0 +1,14 @@
+services:
+  vm1:
+    build: ./vm1
+    runtime:
+      sysbox-runc
+    hostname:
+      vm1
+    container_name:
+      vm1
+    volumes:
+      - inner-container-data:/var/lib/docker
+
+volumes:
+  inner-container-data:
