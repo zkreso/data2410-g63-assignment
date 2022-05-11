@@ -9,6 +9,30 @@ services:
       vm1
     volumes:
       - inner-container-data:/var/lib/docker
+    networks:
+      vm_net:
+        ipv4_address: 10.0.0.2
+  vm3:
+    build: ./vm3
+    hostname:
+      vm3
+    container_name:
+      vm3
+    volumes:
+      - zabbix-agent-config:/etc/zabbix
+    networks:
+      vm_net:
+        ipv4_address: 10.0.0.4
+
+networks:
+  vm_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+       - subnet: "10.0.0.0/8"
+         gateway: 10.0.0.1
 
 volumes:
   inner-container-data:
+  zabbix-agent-config:
