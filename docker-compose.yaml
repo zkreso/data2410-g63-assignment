@@ -18,9 +18,6 @@ services:
       vm2
     container_name:
       vm2
-    volumes:
-      - zabbix-proxy-config:/etc/zabbix
-      - nginx-config:/etc/nginx
     networks:
       vm_net:
         ipv4_address: 10.0.0.3
@@ -30,8 +27,6 @@ services:
       vm3
     container_name:
       vm3
-    volumes:
-      - zabbix-agent-config:/etc/zabbix
     networks:
       vm_net:
         ipv4_address: 10.0.0.4
@@ -47,6 +42,3 @@ networks:
 
 volumes:
   inner-container-data:
-  zabbix-agent-config:
-  zabbix-proxy-config:
-  nginx-config:
