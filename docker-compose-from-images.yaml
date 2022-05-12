@@ -1,0 +1,52 @@
+services:
+  vm1:
+    build: ./vm1
+    runtime:
+      sysbox-runc
+    hostname:
+      vm1
+    container_name:
+      vm1
+    volumes:
+      - inner-container-data:/var/lib/docker
+    networks:
+      vm_net:
+        ipv4_address: 10.0.0.2
+  vm2:
+    image: zkreso/assn_vm2
+    hostname:
+      vm2
+    container_name:
+      vm2
+    volumes:
+      - zabbix-proxy-config:/etc/zabbix
+      - nginx-config:/etc/nginx/sites-enabled
+    networks:
+      vm_net:
+        ipv4_address: 10.0.0.3
+  vm3:
+    image: zkreso/assn_vm3
+    hostname:
+      vm3
+    container_name:
+      vm3
+    volumes:
+      - zabbix-agent-config:/etc/zabbix
+    networks:
+      vm_net:
+        ipv4_address: 10.0.0.4
+
+networks:
+  vm_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+       - subnet: "10.0.0.0/8"
+         gateway: 10.0.0.1
+
+volumes:
+  inner-container-data:
+  zabbix-proxy-config:
+  nginx-config:
+  zabbix-agent-config:
